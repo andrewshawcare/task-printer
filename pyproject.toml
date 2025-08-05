@@ -9,3 +9,6 @@ dependencies = ["python-escpos[usb]"]
 dev = [
     "pytest>=8.4.1",
 ]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
