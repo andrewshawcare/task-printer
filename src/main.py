@@ -1,20 +1,30 @@
-from escpos import printer
+from escpos import escpos, printer
 from tempfile import NamedTemporaryFile
-from print_task_from_text_file.main import print_task_from_text_file
+from print_html_file import print_html_file
+from string import Template
 
-vendor_id = 0x04b8 # Seiko Epson Corp.
-product_id = 0x0e28 # TM-T20III
+with open("./task.html", "r") as task_template_file:
+    task_template = task_template_file.read()
 
-usb_printer = printer.Usb(
-    idVendor=vendor_id,
-    idProduct=product_id
+task = {"title": "Task", "description": "Complete the TDD implementation"}
+
+task_content = Template(task_template).substitute(
+    title=task["title"], description=task["description"]
 )
 
-task_content = "Task: Implement TDD for thermal printer\n- Write failing test\n- Make it pass\n- Refactor"
+# Seiko Epson Corp.
+vendor_id = 0x04B8
 
-with NamedTemporaryFile(delete_on_close=False) as task_file:
+# TM-T20III
+product_id = 0x0E28
+
+with (
+    NamedTemporaryFile(suffix=".html", delete_on_close=False) as task_file,
+    escpos.EscposIO(
+        printer.Usb(idVendor=vendor_id, idProduct=product_id)
+    ) as printer_io,
+):
     task_file.write(task_content.encode())
     task_file.close()
 
-    print_task_from_text_file(task_file.name, usb_printer)
-    usb_printer.close()
+    print_html_file(task_file.name, printer_io.printer)
