@@ -1,0 +1,86 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Everything",
+    "type": "object",
+    "properties": {
+        "request": {
+            "type": "object",
+            "properties": {
+                "servertime": {
+                    "type": "integer"
+                }
+            }
+        },
+        "results": {
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "task": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    },
+                                    "completed": {
+                                        "type": "string"
+                                    },
+                                    "deleted": {
+                                        "type": "string"
+                                    },
+                                    "cancelled": {
+                                        "type": "string"
+                                    },
+                                    "seqt": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "required": [
+                            "task"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "user": {
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "user"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "pref": {
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "pref"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "tag": {
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "tag"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -11,5 +11,3 @@ def print_text_file(file_path: Union[str, Path], printer: Escpos) -> None:
     content = file_path.read_text()
 
     printer.text(content)
-
-    printer.cut()

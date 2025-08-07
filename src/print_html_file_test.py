@@ -1,7 +1,6 @@
 import pytest
 from pathlib import Path
 from escpos.printer import Dummy
-from escpos.constants import PAPER_FULL_CUT
 from tempfile import NamedTemporaryFile
 from .print_html_file import print_html_file
 
@@ -42,7 +41,6 @@ def test_should_print_an_html_file():
     # Assert
     output = printer.output
     assert_image_output(output)
-    assert PAPER_FULL_CUT in output
 
 
 def test_should_accept_string_path():
@@ -62,7 +60,6 @@ def test_should_accept_string_path():
     # Assert
     output = printer.output
     assert_image_output(output)
-    assert PAPER_FULL_CUT in output
 
 
 def test_should_raise_error_for_nonexistent_file():
@@ -95,8 +92,6 @@ def test_should_read_html_content_and_convert_to_image():
     # Arbitrary minimum size for image data
     minimum_image_size_in_bytes = 100
     assert len(output) > minimum_image_size_in_bytes
-
-    assert PAPER_FULL_CUT in output
 
 
 def test_should_render_different_html_content_differently():
